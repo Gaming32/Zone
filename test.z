@@ -1,0 +1,11 @@
+&n=greeting="Hello" # Hello
+&n=name="World"
+&call=print(greeting)
+   &call=print(", ")
+&call=print(name)
+  print("!\n")
+
+# Heello Wdfs
+&n=func(jdfsjiof) [
+    print('abc')
+]
