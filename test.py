@@ -1,3 +1,6 @@
+import pprint
+
+
 from zone.tokenizer1 import ZoneTokenizer
 from zone.tokenizer2 import prepare_tokens, token_iter
 
@@ -9,11 +12,11 @@ with open(SOURCE_FILE) as fp:
 
 tokenizer = ZoneTokenizer(source, source_name=SOURCE_FILE)
 tokens = tokenizer.tokenize()
-print('Tokens:', tokens)
+print('Tokens:', pprint.pformat(tokens))
 
-# print()
+print()
 
-# print('Prepared tokens:', prepare_tokens(tokens))
+print('Prepared tokens:', pprint.pformat(prepare_tokens(tokens)))
 
 # print()
 
