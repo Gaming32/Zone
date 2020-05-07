@@ -1,8 +1,8 @@
 import pprint
 
 
-from zone.tokenizer1 import ZoneTokenizer
-from zone.tokenizer2 import prepare_tokens, token_iter
+from zone.tokenizer import SourceTokenizer
+from zone.parser import prepare_tokens, parse_tokens
 
 
 SOURCE_FILE = 'test.z'
@@ -10,7 +10,7 @@ with open(SOURCE_FILE) as fp:
     source = fp.read()
 
 
-tokenizer = ZoneTokenizer(source, source_name=SOURCE_FILE)
+tokenizer = SourceTokenizer(source, source_name=SOURCE_FILE)
 tokens = tokenizer.tokenize()
 print('Tokens:', pprint.pformat(tokens))
 
@@ -18,7 +18,7 @@ print()
 
 print('Prepared tokens:', pprint.pformat(prepare_tokens(tokens)))
 
-# print()
+print()
 
-# iterable = token_iter(tokens, source_name=SOURCE_FILE)
-# print('Finished Tokens:', list(iterable))
+parsed = parse_tokens(tokens, source_name=SOURCE_FILE)
+print('Finished Tokens:', parsed)

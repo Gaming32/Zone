@@ -8,7 +8,7 @@ one_line_whitespace = ''.join(c for c in string.whitespace
 ident_starters = string.ascii_letters + '_'
 
 
-class ZoneTokenizer:
+class SourceTokenizer:
     def __init__(self, code=None, source_name='<string>'):
         self.source_name = source_name
         self.initialized = False
