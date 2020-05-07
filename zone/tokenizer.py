@@ -1,10 +1,8 @@
 import string
 
 
-one_line_whitespace = ''.join(c for c in string.whitespace
-    if c != '\n'
-    if c != '\r'
-)
+newline_whitespace = ('\n', '\r')
+one_line_whitespace = ''.join(c for c in string.whitespace if c not in newline_whitespace)
 ident_starters = string.ascii_letters + '_'
 
 
@@ -46,19 +44,21 @@ class SourceTokenizer:
                     return None
                 self.col = 0
                 self.line += 1
-                tokens.append([])
-                line_state = 0
-                in_comment = False
+                if in_string != '`':
+                    tokens.append([])
+                    line_state = 0
+                    in_comment = False
             if in_comment: pass
             elif char == '#' and in_string is None:
                 in_comment = True
             elif line_state == 0:
                 if char not in string.whitespace:
-                    line_state = 1
                     if char == '&':
                         tokens[-1].extend(('&', ''))
+                        line_state = 1
                     elif char == '\\':
                         tokens[-1].extend(('\\', ''))
+                        line_state = 10
                     elif char in ident_starters:
                         tokens[-1].extend(('&', 'call', char))
                         line_state = 2
@@ -101,8 +101,16 @@ class SourceTokenizer:
                             in_string = None
                         else:
                             in_string_escape = False
+                elif char == '`':
+                    if in_string is None:
+                        in_string = '`'
+                    elif in_string == '`':
+                        in_string = None
                 elif in_string is not None and in_string != '`' and in_string_escape:
                     in_string_escape = False
+            elif line_state == 10:
+                if char not in newline_whitespace:
+                    tokens[-1][-1] += char
             elif line_state == -1:
                 if char not in string.whitespace:
                     self.syntax_error('extra code after end block', -1)
@@ -113,6 +121,7 @@ class SourceTokenizer:
         if in_string == '`':
             self.syntax_error('raw string not completed')
             return None
+
         return tokens
 
 

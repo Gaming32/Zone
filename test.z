@@ -1,4 +1,4 @@
-# /meta name "hello"
+\meta name "hello"
 
 &n=greeting="Hello"
 &n=name="World"
@@ -13,6 +13,6 @@ print("!\n")
 ]
 
 # Multiline strings
-# myfunc(`Hello
-# newline and \
-# world!\\`)
+myfunc(`Hello
+newline and \
+world!\\`)

@@ -18,7 +18,7 @@ print()
 
 print('Prepared tokens:', pprint.pformat(prepare_tokens(tokens)))
 
-print()
+# print()
 
-parsed = parse_tokens(tokens, source_name=SOURCE_FILE)
-print('Finished Tokens:', parsed)
+# parsed = parse_tokens(tokens, source_name=SOURCE_FILE)
+# print('Finished Tokens:', parsed)
